@@ -27,6 +27,7 @@ function BuildControls(props) {
                     />
                 ))
             }
+            <button className={styles.OrderButton} disabled={!props.isPurchasable}>Place Your Order</button>
         </div>
     )
 }
