@@ -44,11 +44,16 @@ class BurgerBuilder extends Component {
         })
     }
 
-    showBackdropHandler = () => {
+    removeSummary = () => {
         //Handle showing the dark backdrop under Order summary
         this.setState({
             showSummary: false
         })
+    }
+
+    continueShopping = () => {
+        alert("Order placed and cost only: $" + this.state.totalPrice.toFixed(2))
+        this.removeSummary()
     }
 
     addIngredientHandler = (type) => {
@@ -92,8 +97,12 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                <Modal showModal={this.state.showSummary} showBackdrop={this.showBackdropHandler}>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                <Modal showModal={this.state.showSummary} showBackdrop={this.removeSummary}>
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        contShoping={this.continueShopping}
+                        cnclShopping={this.removeSummary}
+                    />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
@@ -101,6 +110,7 @@ class BurgerBuilder extends Component {
                     removeIngredients={this.removeIngredientHandler}
                     disabledInfo={disabledInfo}
                     price={this.state.totalPrice}
+                    //check if user added any ingredients
                     isPurchasable={this.state.purchasable}
                     showSummary={this.showSummaryHandler}
                 />
