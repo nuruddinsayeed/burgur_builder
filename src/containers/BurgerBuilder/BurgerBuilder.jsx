@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Aux from '../../hoc/Aux'
 import Burger from '../../componets/Burger/Burger'
 import BuildControls from '../../componets/Burger/BuildControls/BuildControls'
+import Modal from '../../componets/UI/Modal/Modal'
+import OrderSummary from '../../componets/Burger/OrderSummary/OrderSummary'
 
 
 const INGREDIENT_PRICE = {
@@ -21,7 +23,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        showSummary: false
     }
 
     purchasable(ingredients) {
@@ -33,6 +36,19 @@ class BurgerBuilder extends Component {
             }, 0)
 
         this.setState({ purchasable: totalIngredients > 0 })
+    }
+
+    showSummaryHandler = () => {
+        this.setState({
+            showSummary: true
+        })
+    }
+
+    showBackdropHandler = () => {
+        //Handle showing the dark backdrop under Order summary
+        this.setState({
+            showSummary: false
+        })
     }
 
     addIngredientHandler = (type) => {
@@ -76,6 +92,9 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
+                <Modal showModal={this.state.showSummary} showBackdrop={this.showBackdropHandler}>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
                     addIngredients={this.addIngredientHandler}
@@ -83,6 +102,7 @@ class BurgerBuilder extends Component {
                     disabledInfo={disabledInfo}
                     price={this.state.totalPrice}
                     isPurchasable={this.state.purchasable}
+                    showSummary={this.showSummaryHandler}
                 />
             </Aux>
         );
