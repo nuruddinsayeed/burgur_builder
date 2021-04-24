@@ -22,6 +22,8 @@ function OrderSummary(props) {
             <ul>
                 {orderSummary}
             </ul>
+            <p><strong>Total Price: ${props.totoalAmount}</strong></p>
+            <p>Coninue to Checkout?</p>
             <Button clicked={props.contShoping} btnType="Success" >CONTINUE</Button>
             <Button clicked={props.cnclShopping} btnType="Danger" >CANCEL</Button>
         </Aux>
