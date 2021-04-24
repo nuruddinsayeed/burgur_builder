@@ -2,14 +2,17 @@ import React from 'react'
 import styels from './Toolbar.module.css'
 import Logo from '../Logo/Logo'
 import NavigationItems from '../NavigationItems/NavigationItems'
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle'
 
-function Toolbar() {
+function Toolbar(props) {
     return (
         <header className={styels.Toolbar}>
-            <div>Menue</div>
-            <Logo />
+            <DrawerToggle clicked={props.drawerToggleClicked} />
+            <div className={styels.Logo}>
+                <Logo />
+            </div>
 
-            <nav>
+            <nav className={styels.DesktopOnly}>
                 <NavigationItems />
             </nav>
         </header>
